@@ -85,6 +85,11 @@ jobs:
           pip install -e . -r requirements/app/devel.txt -U -q --find-links ${TORCH_URL}
           pip list
 
+      # FXIME: not sure what is pulling this dependency from pypi but shall be removed
+      - name: Hotfix dependency
+        if: ${{ matrix.pkg-name != 'lightning' }}
+        run: pip uninstall -y lightning
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
